@@ -1,0 +1,16 @@
+{
+  "test solution": {
+    "description": "test solution",
+    "prefix": "test",
+    "body": [
+      "if __name__ == '__main__':",
+      "    s = Solution()",
+      "    i = []",
+      "    o = []",
+      "    for index in range(len(i)):",
+      "        r = s.fn(i[index])",
+      "        print(i[index], o[index], r, '✅' if r == o[index] else '❌')",
+      ""
+    ]
+  }
+}
