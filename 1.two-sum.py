@@ -10,14 +10,13 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        for i, n1 in enumerate(nums):
-            n2 = target - n1
+        hash_table = {}
+        for i, n in enumerate(nums):
+            remain = target - n
+            if remain in hash_table:
+                return [hash_table[remain], i]
 
-            try:
-                j = nums.index(n2, i + 1)
-                return [i, j]
-            except ValueError:
-                continue
+            hash_table[n] = i
 
         return []
 
