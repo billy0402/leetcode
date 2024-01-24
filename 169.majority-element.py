@@ -8,16 +8,19 @@
 # @lc code=start
 class Solution:
     def majorityElement(self, nums: list[int]) -> int:
-        half = len(nums) // 2
-        hash_table = {}
+        major = -1
+        count = 0
 
         for n in nums:
-            hash_table[n] = hash_table.get(n, 0) + 1
+            if n == major:
+                count += 1
+            elif count == 0:
+                major = n
+                count = 1
+            else:
+                count -= 1
 
-            if hash_table[n] > half:
-                return n
-
-        return -1
+        return major
 
 
 # @lc code=end
