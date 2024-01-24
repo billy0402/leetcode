@@ -4,21 +4,18 @@
 # [14] Longest Common Prefix
 #
 
+
 # @lc code=start
-from typing import List
-
-
 class Solution:
-    def longestCommonPrefix(self, strs: List[str]) -> str:
-        shortest = min(strs, key=len)
-        prefix = ''
-        for i in range(0, len(shortest)):
-            prefix += shortest[i]
-            isPrefix = all(text.startswith(prefix) for text in strs)
-            if not isPrefix:
+    def longestCommonPrefix(self, strs: list[str]) -> str:
+        prefix = strs[0]
+        for i in range(1, len(strs)):
+            s = strs[i]
+            while s[:len(prefix)] != prefix:
                 prefix = prefix[:-1]
-                break
 
+                if prefix == '':
+                    return prefix
         return prefix
 
 
