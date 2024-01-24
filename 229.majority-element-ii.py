@@ -8,17 +8,38 @@
 # @lc code=start
 class Solution:
     def majorityElement(self, nums: list[int]) -> list[int]:
-        answer = []
-        min_appear = len(nums) // 3
-        hash_table = {}
+        major1, major2 = -1, -1
+        count1, count2 = 0, 0
 
         for n in nums:
-            hash_table[n] = hash_table.get(n, 0) + 1
+            if n == major1:
+                count1 += 1
+            elif n == major2:
+                count2 += 1
+            elif count1 == 0:
+                major1 = n
+                count1 = 1
+            elif count2 == 0:
+                major2 = n
+                count2 = 1
+            else:
+                count1 -= 1
+                count2 -= 1
 
-            if n not in answer and hash_table[n] > min_appear:
-                answer.append(n)
+        count1, count2 = 0, 0
+        for n in nums:
+            if n == major1:
+                count1 += 1
+            elif n == major2:
+                count2 += 1
 
-        return answer
+        answers = []
+        min_count = len(nums) // 3
+        if count1 > min_count:
+            answers.append(major1)
+        if count2 > min_count:
+            answers.append(major2)
+        return answers
 
 
 # @lc code=end
