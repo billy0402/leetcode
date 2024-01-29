@@ -5,35 +5,57 @@
 #
 
 # @lc code=start
-from typing import List
+from typing import Generic, TypeVar
+
+T = TypeVar('T')
+
+
+class Stack(Generic[T]):
+    stack: list[T]
+
+    def __init__(self) -> None:
+        self.stack = []
+
+    @property
+    def empty(self) -> bool:
+        return not self.stack
+
+    def append(self, value: int) -> None:
+        self.stack.append(value)
+
+    def pop(self) -> T:
+        return self.stack.pop()
 
 
 class MyQueue:
-    stack: List[int] = []
+    stack_in: Stack[int]
+    stack_out: Stack[int]
 
     def __init__(self):
-        self.stack = []
+        self.stack_in = Stack[int]()
+        self.stack_out = Stack[int]()
 
-    def push(self, x: int) -> None:
-        self.stack.append(x)
+    def push(self, value: int) -> None:
+        self.stack_in.append(value)
 
     def pop(self) -> int:
-        if self.empty():
-            return 0
-        return self.stack.pop(0)
+        if self.stack_out.empty:
+            while not self.stack_in.empty:
+                self.stack_out.append(self.stack_in.pop())
+        return self.stack_out.pop()
 
     def peek(self) -> int:
-        if self.empty():
-            return 0
-        return self.stack[0]
+        item = self.pop()
+        self.stack_out.append(item)
+        return item
 
     def empty(self) -> bool:
-        return len(self.stack) == 0
+        return self.stack_in.empty and self.stack_out.empty
 
 
 # Your MyQueue object will be instantiated and called as such:
 # obj = MyQueue()
-# obj.push(1)
+# obj.push(x)
 # param_2 = obj.pop()
 # param_3 = obj.peek()
 # param_4 = obj.empty()
