@@ -7,17 +7,14 @@
 
 # @lc code=start
 class Solution:
-    hash_table: dict[int, int]
-
-    def __init__(self):
-        self.hash_table = {0: 0, 1: 1}
-
     def fib(self, n: int) -> int:
-        if self.hash_table.get(n) is not None:
-            return self.hash_table[n]
+        self.dp = [-1] * max(n + 1, 2)
+        self.dp[0] = 0
+        self.dp[1] = 1
 
-        self.hash_table[n] = self.fib(n - 1) + self.fib(n - 2)
-        return self.hash_table[n]
+        for i in range(2, n + 1):
+            self.dp[i] = self.dp[i - 1] + self.dp[i - 2]
+        return self.dp[n]
 
 
 # @lc code=end
