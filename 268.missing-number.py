@@ -8,9 +8,10 @@
 # @lc code=start
 class Solution:
     def missingNumber(self, nums: list[int]) -> int:
-        n = len(nums)
-        excepted = (1 + n) * n // 2
-        return excepted - sum(nums)
+        xor = 0
+        for i, n in enumerate(nums):
+            xor ^= (i + 1) ^ n
+        return xor
 
 
 # @lc code=end
