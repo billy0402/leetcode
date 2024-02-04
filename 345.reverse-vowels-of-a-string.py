@@ -8,20 +8,22 @@
 # @lc code=start
 class Solution:
     def reverseVowels(self, s: str) -> str:
-        letters: list[str] = []
-        vowels: list[str] = []
+        letters = list(s)
+        left, right = 0, len(letters) - 1
+        vowels = {'a', 'e', 'i', 'o', 'u'}
 
-        for char in s:
-            if char in 'aeiouAEIOU':
-                letters.append('*')
-                vowels.append(char)
-            else:
-                letters.append(char)
+        while left < right:
+            if letters[left].lower() not in vowels:
+                left += 1
+                continue
 
-        for i in range(len(letters)):
-            char = letters[i]
-            if char == '*':
-                letters[i] = vowels.pop()
+            if letters[right].lower() not in vowels:
+                right -= 1
+                continue
+
+            letters[left], letters[right] = letters[right], letters[left]
+            left += 1
+            right -= 1
 
         return ''.join(letters)
 
