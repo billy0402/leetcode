@@ -8,15 +8,7 @@
 # @lc code=start
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        if n == 1:
-            return True
-
-        copy = n
-        counter = 1
-        while copy > 2:
-            copy //= 2
-            counter += 1
-        return n == 2**counter
+        return n > 0 and n & (n - 1) == 0
 
 
 # @lc code=end
