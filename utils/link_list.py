@@ -1,5 +1,11 @@
+from typing import Optional, Self
+
+
 class ListNode:
-    def __init__(self, x):
+    val: int
+    next: Optional[Self]
+
+    def __init__(self, x: int):
         self.val = x
         self.next = None
 
