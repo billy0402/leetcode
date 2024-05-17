@@ -85,6 +85,8 @@ ignore = [
   "D203",
   # pydocstyle: Allow blank line after docstring
   "D202",
+  # leecode: Solution object function should be camel case
+  "N802",
 ]
 
 [tool.ruff.lint.flake8-tidy-imports]
