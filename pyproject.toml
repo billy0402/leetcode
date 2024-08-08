@@ -98,5 +98,5 @@ convention = "google"
 
 [tool.pyright]
 pythonVersion = "3.11"
-typeCheckingMode = "basic"
+typeCheckingMode = "strict"
 reportUnnecessaryTypeIgnoreComment = true
