@@ -5,37 +5,22 @@
 #
 
 # @lc code=start
-class TrieNode:
-    def __init__(self) -> None:
-        self.children: dict[str, TrieNode] = {}
-
-
-class Trie:
-    def __init__(self, nums: list[int]) -> None:
-        self.root = TrieNode()
-        for num in nums:
-            current = self.root
-            for digit in str(num):
-                if digit not in current.children:
-                    current.children[digit] = TrieNode()
-                current = current.children[digit]
-
-
 class Solution:
     def longestCommonPrefix(self, arr1: list[int], arr2: list[int]) -> int:
-        trie = Trie(arr1)
+        arr1_prefixes: set[int] = set()
+        for num in arr1:
+            value = num
+            while value > 0 and value not in arr1_prefixes:
+                arr1_prefixes.add(value)
+                value //= 10
 
         longest_prefix = 0
         for num in arr2:
-            current = trie.root
-            value = str(num)
-            temp_prefix = 0
-            for digit in value:
-                if digit not in current.children:
-                    break
-                temp_prefix += 1
-                current = current.children[digit]
-            longest_prefix = max(temp_prefix, longest_prefix)
+            value = num
+            while value > 0 and value not in arr1_prefixes:
+                value //= 10
+            if value in arr1_prefixes:
+                longest_prefix = max(len(str(value)), longest_prefix)
         return longest_prefix
 
 
