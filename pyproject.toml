@@ -6,20 +6,21 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "leetcode"
 version = "0.1.0"
-description = ""
+description = "LeetCode problems solution collection, mainly using Python."
 authors = ["Billy Huang <10646003@ntub.edu.tw>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "0.4.3"
-black = "24.4.2"
-pyright = "1.1.361"
+ruff = "0.7.0"
+# Use same version with VSCode Pylance: https://github.com/microsoft/pylance-release/blob/main/releases/latest-release.json
+pyright = "1.1.382"
 
 [tool.poetry.group.test.dependencies]
-pytest = "8.1.1"
+pytest = "8.3.3"
 
 
 [tool.ruff]
