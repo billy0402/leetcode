@@ -7,7 +7,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 install:  ## Install dependences
-	poetry install
+	poetry install --sync
 .PHONY: install
 
 test:  ## Run check and test
@@ -15,22 +15,26 @@ test:  ## Run check and test
 .PHONY: test
 
 lint:  ## Check lint
-	poetry run ruff check --diff .
-	poetry run black --check --diff .
+	poetry run ruff check .
+	poetry run ruff format --check .
 .PHONY: lint
 
 lint-fix:  ## Fix lint
 	poetry run ruff check --fix .
-	poetry run black .
+	poetry run ruff format .
 .PHONY: lint-fix
 
 typecheck:  ## Run typechecking
-	poetry run pyright .
+	PYRIGHT_PYTHON_IGNORE_WARNINGS=1 poetry run pyright .
 .PHONY: typecheck
+
+ci: lint typecheck test  ## Run all checks (lint, typecheck, test)
+.PHONY: ci
 
 clean:  ## Clean cache files
 	find . -name '__pycache__' -type d | xargs rm -rvf
 	find . -name '.pytest_cache' -type d | xargs rm -rvf
+	find . -name '.DS_Store' -type f | xargs rm -rvf
 	poetry run ruff clean
 .PHONY: clean
 
