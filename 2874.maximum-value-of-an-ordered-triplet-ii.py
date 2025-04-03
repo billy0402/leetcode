@@ -7,16 +7,13 @@
 # @lc code=start
 class Solution:
     def maximumTripletValue(self, nums: list[int]) -> int:
-        n = len(nums)
-        prefix_max = [0] * n
-        suffix_max = [0] * n
-        for i in range(1, n):
-            prefix_max[i] = max(nums[i - 1], prefix_max[i - 1])
-            suffix_max[n - 1 - i] = max(nums[n - i], suffix_max[n - i])
+        result, max_prefix, max_diff = 0, 0, 0
 
-        result = 0
-        for i in range(1, n - 1):
-            result = max(result, (prefix_max[i] - nums[i]) * suffix_max[i])
+        for k in nums:
+            result = max(result, max_diff * k)
+            max_prefix = max(max_prefix, k)
+            max_diff = max(max_diff, max_prefix - k)
+
         return result
 
 
