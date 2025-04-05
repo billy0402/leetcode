@@ -7,29 +7,17 @@
 # @lc code=start
 class Solution:
     def subsetXORSum(self, nums: list[int]) -> int:
-        def backtracking(current: list[int], index: int):
-            if index == len(nums):
-                subsets.append(current[:])
-                return
+        def backtracking(i: int, total: int) -> int:
+            if i == len(nums):
+                return total
 
             # generate subset include nums[index]
-            current.append(nums[index])
-            backtracking(current, index + 1)
-            current.pop()
-
+            include_i = backtracking(i + 1, total ^ nums[i])
             # generate subset exclude nums[index]
-            backtracking(current, index + 1)
+            exclude_i = backtracking(i + 1, total)
+            return include_i + exclude_i
 
-        subsets: list[list[int]] = []
-        backtracking([], 0)
-
-        total = 0
-        for subset in subsets:
-            xor = 0
-            for num in subset:
-                xor ^= num
-            total += xor
-        return total
+        return backtracking(0, 0)
 
 
 # @lc code=end
